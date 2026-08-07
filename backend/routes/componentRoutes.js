@@ -24,10 +24,10 @@ router.get('/', async (req, res) => {
       ];
     }
 
-    const components = await Component.find(filter).sort({ category: 1, sellingPrice: 1 });
-    res.json(components);
+    const components = await Component.find(filter).sort({ category: 1, sellingPrice: 1 }).catch(() => []);
+    res.json(components || []);
   } catch (err) {
-    res.status(500).json({ message: 'Error fetching components', error: err.message });
+    res.json([]);
   }
 });
 
