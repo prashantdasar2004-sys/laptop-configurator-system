@@ -1,4 +1,6 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+const API_BASE = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
+  ? '/api'
+  : (import.meta.env.VITE_API_BASE_URL || 'https://laptop-configurator-system.onrender.com/api');
 
 
 
