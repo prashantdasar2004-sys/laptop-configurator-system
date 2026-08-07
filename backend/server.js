@@ -59,9 +59,14 @@ mongoose.connect(MONGODB_URI)
     console.warn('Attempting to initialize application in resilient mock mode...');
   });
 
-app.listen(PORT, () => {
-  console.log(`=======================================================`);
-  console.log(`Laptop Configuration & Pricing Backend running on port ${PORT}`);
-  console.log(`API Base URL: http://localhost:${PORT}/api`);
-  console.log(`=======================================================`);
-});
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`=======================================================`);
+    console.log(`Laptop Configuration & Pricing Backend running on port ${PORT}`);
+    console.log(`API Base URL: http://localhost:${PORT}/api`);
+    console.log(`=======================================================`);
+  });
+}
+
+module.exports = app;
+
