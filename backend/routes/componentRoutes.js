@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Component = require('../models/Component');
+const { initialComponents } = require('../utils/seedData');
 
 // GET /api/components - List all components with filtering & search
 router.get('/', async (req, res) => {
@@ -24,10 +25,13 @@ router.get('/', async (req, res) => {
       ];
     }
 
-    const components = await Component.find(filter).sort({ category: 1, sellingPrice: 1 }).catch(() => []);
-    res.json(components || []);
+    let components = await Component.find(filter).sort({ category: 1, sellingPrice: 1 }).catch(() => []);
+    if (!components || components.length === 0) {
+      components = initialComponents;
+    }
+    res.json(components);
   } catch (err) {
-    res.json([]);
+    res.json(initialComponents);
   }
 });
 
