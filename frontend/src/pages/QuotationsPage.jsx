@@ -182,7 +182,7 @@ export const QuotationsPage = () => {
               </thead>
               <tbody className="divide-y divide-slate-800/60">
                 {quotations.map((q) => (
-                  <tr key={q._id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={q._id || q.quoteNumber} className="hover:bg-slate-800/40 transition-colors">
                     
                     <td className="p-4">
                       <Link to={`/quotations/${q._id}`} className="font-mono font-bold text-cyan-400 hover:underline">

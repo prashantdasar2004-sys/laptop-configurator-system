@@ -173,7 +173,7 @@ export const ComponentsPage = () => {
 
             return (
               <div
-                key={comp._id}
+                key={comp._id || comp.sku}
                 className="glass-panel rounded-2xl border border-slate-800 p-5 flex flex-col justify-between glass-panel-hover"
               >
                 <div>

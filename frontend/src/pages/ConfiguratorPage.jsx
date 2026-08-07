@@ -214,7 +214,7 @@ export const ConfiguratorPage = () => {
 
                     return (
                       <div
-                        key={comp._id}
+                        key={comp._id || comp.sku}
                         onClick={() => handleSelectComponent(cat, comp)}
                         className={`p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
                           isSelected
