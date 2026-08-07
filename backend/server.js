@@ -18,6 +18,15 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.get('/', (req, res) => {
+  res.send(`
+    <div style="font-family: sans-serif; text-align: center; padding: 50px;">
+      <h1 style="color: #0284c7;">⚡ OmniConfig Backend API is Running Live</h1>
+      <p style="color: #475569;">System Status: <strong style="color: #16a34a;">Operational</strong></p>
+      <p><a href="/api/health" style="color: #2563eb;">Check API Health (/api/health)</a></p>
+    </div>
+  `);
+});
 app.use('/api/auth', authRoutes);
 app.use('/api/components', componentRoutes);
 app.use('/api/quotations', quotationRoutes);
