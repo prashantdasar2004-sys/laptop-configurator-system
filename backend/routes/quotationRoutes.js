@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Quotation = require('../models/Quotation');
 const Component = require('../models/Component');
-const { initialComponents } = require('../utils/seedData');
+const { initialComponents } = require('../utils/initialCatalog');
 
 // Sample in-memory quotation store for absolute 100% resilience
 let inMemoryQuotations = [

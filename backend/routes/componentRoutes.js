@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Component = require('../models/Component');
-const { initialComponents } = require('../utils/seedData');
+const { initialComponents } = require('../utils/initialCatalog');
 
 // GET /api/components - List all components with filtering & search
 router.get('/', async (req, res) => {
