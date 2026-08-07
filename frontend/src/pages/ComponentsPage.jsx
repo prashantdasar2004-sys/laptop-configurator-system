@@ -224,7 +224,7 @@ export const ComponentsPage = () => {
                 {/* Card Action Buttons */}
                 <div className="flex items-center justify-between pt-3 border-t border-slate-800/80">
                   <button
-                    onClick={() => { setPriceUpdateComp(comp); setIsPriceModalOpen(true); }}
+                    onClick={() => { setPriceUpdateComp({ ...comp, _id: comp._id || comp.sku }); setIsPriceModalOpen(true); }}
                     className="flex items-center space-x-1 text-xs font-semibold text-amber-400 hover:text-amber-300 px-2.5 py-1.5 rounded-lg bg-amber-950/30 border border-amber-800/40 hover:bg-amber-950/60 transition-colors"
                   >
                     <TrendingUp className="w-3.5 h-3.5" />
@@ -233,14 +233,14 @@ export const ComponentsPage = () => {
 
                   <div className="flex items-center space-x-2">
                     <button
-                      onClick={() => { setEditingComp(comp); setIsCompModalOpen(true); }}
+                      onClick={() => { setEditingComp({ ...comp, _id: comp._id || comp.sku }); setIsCompModalOpen(true); }}
                       className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
                       title="Edit Component Details"
                     >
                       <Edit2 className="w-4 h-4" />
                     </button>
                     <button
-                      onClick={() => handleDelete(comp._id)}
+                      onClick={() => handleDelete(comp._id || comp.sku)}
                       className="p-2 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-slate-800"
                       title="Delete Component"
                     >
