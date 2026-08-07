@@ -69,12 +69,15 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Disable Mongoose Command Buffering for Zero-Hang Performance
+mongoose.set('bufferCommands', false);
+
 // Serverless Resilient MongoDB Middleware
 app.use(async (req, res, next) => {
   if (mongoose.connection.readyState !== 1) {
     try {
       await mongoose.connect(MONGODB_URI, {
-        serverSelectionTimeoutMS: 5000
+        serverSelectionTimeoutMS: 1000
       });
       console.log('Serverless MongoDB connected successfully.');
       const Component = require('./models/Component');
@@ -83,7 +86,7 @@ app.use(async (req, res, next) => {
         await seedDatabase();
       }
     } catch (err) {
-      console.warn('Serverless MongoDB connection issue:', err.message);
+      console.warn('MongoDB connection fallback mode active.');
     }
   }
   next();
