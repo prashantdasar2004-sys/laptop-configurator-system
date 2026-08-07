@@ -36,9 +36,9 @@ router.get('/dashboard', async (req, res) => {
         totalComponents,
         approvedQuotes,
         pendingQuotes,
-        totalPipelineValue: Math.round(totalPipelineValue),
-        totalMarginProfit: Math.round(totalMarginProfit),
-        avgMarginPercentage: quotations.length ? Math.round((totalMarginProfit / totalPipelineValue) * 100 * 10) / 10 : 0
+        totalPipelineValue: Math.round(totalPipelineValue || 0),
+        totalMarginProfit: Math.round(totalMarginProfit || 0),
+        avgMarginPercentage: (totalPipelineValue && totalPipelineValue > 0) ? Math.round((totalMarginProfit / totalPipelineValue) * 100 * 10) / 10 : 0
       },
       categoryDistribution,
       statusDistribution,

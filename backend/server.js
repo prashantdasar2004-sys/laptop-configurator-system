@@ -51,22 +51,25 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Database Connection & Server Initialization
-mongoose.connect(MONGODB_URI)
-  .then(async () => {
-    console.log('Connected to MongoDB successfully.');
-    // Check if database is empty, auto-seed if needed
-    const Component = require('./models/Component');
-    const count = await Component.countDocuments();
-    if (count === 0) {
-      console.log('Database is empty. Auto-seeding initial dataset...');
-      await seedDatabase();
+// Serverless Resilient MongoDB Middleware
+app.use(async (req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    try {
+      await mongoose.connect(MONGODB_URI, {
+        serverSelectionTimeoutMS: 5000
+      });
+      console.log('Serverless MongoDB connected successfully.');
+      const Component = require('./models/Component');
+      const count = await Component.countDocuments();
+      if (count === 0) {
+        await seedDatabase();
+      }
+    } catch (err) {
+      console.warn('Serverless MongoDB connection issue:', err.message);
     }
-  })
-  .catch(async (err) => {
-    console.warn('MongoDB standalone connection failed:', err.message);
-    console.warn('Attempting to initialize application in resilient mock mode...');
-  });
+  }
+  next();
+});
 
 if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
   app.listen(PORT, () => {
